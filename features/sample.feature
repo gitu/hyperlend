@@ -14,89 +14,89 @@
 Feature: Sample
     Background:
         Given I have deployed the business network definition ..
-        And I have added the following participants of type org.acme.mynetwork.Trader
+        And I have added the following participants of type ch.hslu.blc.Trader
             | tradeId         | firstName | lastName |
             | alice@email.com | Alice     | A        |
             | bob@email.com   | Bob       | B        |
-        And I have added the following assets of type org.acme.mynetwork.Commodity
+        And I have added the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 1             | One         | London       | 1          | alice@email.com |
             | 2             | Two         | Paris        | 2          | bob@email.com   |
-        And I have issued the participant org.acme.mynetwork.Trader#alice@email.com with the identity alice1
-        And I have issued the participant org.acme.mynetwork.Trader#bob@email.com with the identity bob1
+        And I have issued the participant ch.hslu.blc.Trader#alice@email.com with the identity alice1
+        And I have issued the participant ch.hslu.blc.Trader#bob@email.com with the identity bob1
     Scenario: Alice can read all of the assets
         When I use the identity alice1
-        Then I should have the following assets of type org.acme.mynetwork.Commodity
+        Then I should have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 1             | One         | London       | 1          | alice@email.com |
             | 2             | Two         | Paris        | 2          | bob@email.com   |
     Scenario: Bob can read all of the assets
         When I use the identity bob1
-        Then I should have the following assets of type org.acme.mynetwork.Commodity
+        Then I should have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 1             | One         | London       | 1          | alice@email.com |
             | 2             | Two         | Paris        | 2          | bob@email.com   |
     Scenario: Alice can add assets that she owns
         When I use the identity alice1
-        And I add the following asset of type org.acme.mynetwork.Commodity
+        And I add the following asset of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 3             | Three       | New York     | 3          | alice@email.com |
-        Then I should have the following assets of type org.acme.mynetwork.Commodity
+        Then I should have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 3             | Three       | New York     | 3          | alice@email.com |
     Scenario: Bob can add assets that he owns
         When I use the identity bob1
-        And I add the following asset of type org.acme.mynetwork.Commodity
+        And I add the following asset of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 4             | Four        | Rome         | 4          | bob@email.com   |
-        Then I should have the following assets of type org.acme.mynetwork.Commodity
+        Then I should have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 4             | Four        | Rome         | 4          | bob@email.com   |
     Scenario: Alice can update her assets
         When I use the identity alice1
-        And I update the following asset of type org.acme.mynetwork.Commodity
+        And I update the following asset of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 1             | One         | London       | 5        | alice@email.com |
-        Then I should have the following assets of type org.acme.mynetwork.Commodity
+        Then I should have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 1             | One         | London       | 5        | alice@email.com |
     Scenario: Bob can update his assets
         When I use the identity bob1
-        And I update the following asset of type org.acme.mynetwork.Commodity
+        And I update the following asset of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 2             | Two         | Paris        | 6        | bob@email.com   |
-        Then I should have the following assets of type org.acme.mynetwork.Commodity
+        Then I should have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 2             | Two         | Paris        | 6        | bob@email.com   |
     Scenario: Alice can remove her assets
         When I use the identity alice1
-        And I remove the following asset of type org.acme.mynetwork.Commodity
+        And I remove the following asset of type ch.hslu.blc.Commodity
             | tradingSymbol |
             | 1             |
-        Then I should not have the following assets of type org.acme.mynetwork.Commodity
+        Then I should not have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol |
             | 1             |
     Scenario: Bob can remove his assets
         When I use the identity bob1
-        And I remove the following asset of type org.acme.mynetwork.Commodity
+        And I remove the following asset of type ch.hslu.blc.Commodity
             | tradingSymbol |
             | 2             |
-        Then I should not have the following assets of type org.acme.mynetwork.Commodity
+        Then I should not have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol |
             | 2             |
     Scenario: Alice can submit a transaction for her assets
         When I use the identity alice1
-        And I submit the following transaction of type org.acme.mynetwork.Trade
+        And I submit the following transaction of type ch.hslu.blc.Trade
             | commodity | newOwner      |
             | 1         | bob@email.com |
-        Then I should have the following assets of type org.acme.mynetwork.Commodity
+        Then I should have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity | owner           |
             | 1             | One         | London       | 1          | bob@email.com |
     Scenario: Bob can submit a transaction for his assets
         When I use the identity bob1
-        And I submit the following transaction of type org.acme.mynetwork.Trade
+        And I submit the following transaction of type ch.hslu.blc.Trade
             | commodity | newOwner        |
             | 2         | alice@email.com |
-        Then I should have the following assets of type org.acme.mynetwork.Commodity
+        Then I should have the following assets of type ch.hslu.blc.Commodity
             | tradingSymbol | description | mainExchange | quantity   | owner           |
             | 2             | Two         | Paris        | 2          | alice@email.com   |

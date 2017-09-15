@@ -1,14 +1,14 @@
 {
   "engines": {
-    "composer": "^0.11.0 || ^0.12.0"
+    "composer": "^0.12.0"
   },
-  "name": "my-network",
-  "version": "0.1.8",
-  "description": "My Commodity Trading Network",
+  "name": "hyperlend",
+  "version": "0.0.0",
+  "description": "Hyperlend Crowdlending",
   "networkImage": "https://hyperledger.github.io/composer-sample-networks/packages/basic-sample-network/networkimage.svg",
   "networkImageanimated": "https://hyperledger.github.io/composer-sample-networks/packages/basic-sample-network/networkimageanimated.svg",
   "scripts": {
-    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/basic-sample-network.bna",
+    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/hyperlend.bna",
     "pretest": "npm run lint",
     "lint": "eslint .",
     "postlint": "npm run licchk",
@@ -28,7 +28,7 @@
     "composer",
     "composer-network"
   ],
-  "author": "Hyperledger Composer",
+  "author": "Florian Schrag",
   "license": "Apache-2.0",
   "devDependencies": {
     "browserfs": "^1.4.3",

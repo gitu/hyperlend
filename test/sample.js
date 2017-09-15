@@ -23,7 +23,7 @@ const path = require('path');
 require('chai').should();
 
 const bfs_fs = BrowserFS.BFSRequire('fs');
-const NS = 'org.acme.mynetwork';
+const NS = 'ch.hslu.blc';
 
 describe('Commodity Trading', () => {
 
@@ -47,7 +47,7 @@ describe('Commodity Trading', () => {
             })
             .then(() => {
                 businessNetworkConnection = new BusinessNetworkConnection({ fs: bfs_fs });
-                return businessNetworkConnection.connect('defaultProfile', 'my-network', 'admin', 'adminpw');
+                return businessNetworkConnection.connect('defaultProfile', 'hyperlend', 'admin', 'adminpw');
             });
     });
 

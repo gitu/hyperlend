@@ -1,7 +1,7 @@
 /**
  * My commodity trading network
  */
-namespace org.acme.mynetwork
+namespace ch.hslu.blc
 asset Commodity identified by tradingSymbol {
     o String tradingSymbol
     o String description
