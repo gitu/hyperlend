@@ -1,0 +1,92 @@
+/**
+ * My commodity trading network
+ */
+namespace ch.hslu.blc
+
+abstract participant Member identified by email {
+  o String email
+  o Double balance
+}
+
+participant NaturalPerson extends Member {
+  o String firstName
+  o String lastName
+}
+
+participant LegalPerson extends Member {
+  o String companyName
+  o String contact
+}
+
+enum LoanState {
+  o REQUESTED
+  o APPROVED
+  o FUNDED
+  o REJECTED
+  o NOT_FUNDED
+  o ON_TIME
+  o DELAYED
+  o DEFAULTED
+  o LOSS
+  o PAYED_BACK
+}
+
+concept PaymentInfo {
+  o Double amount
+  o DateTime payment
+}
+
+asset Loan identified by loanId {
+  o String loanId
+  o LoanState state
+  o Double amount
+  o LendorInfo[] bids optional
+  o LendorInfo[] lendors optional
+  o PaymentInfo[] payments optional
+  --> Member owner
+  --> LendingPool pool optional
+}
+
+asset LendingPool identified by poolId {
+  o String poolId
+  o Loan[] loans
+  --> Member owner
+}
+
+concept LendorInfo {
+  --> Member lendor
+  o Double amount
+  o Double interest
+}
+
+abstract transaction LoanTransation {
+  --> Loan loan
+}
+
+transaction AcceptToPool {
+  --> Loan loan
+  --> LendingPool pool
+  o Double specialInterest
+  o Double fee
+}
+
+transaction RejectLoan {
+  --> Loan loan
+}
+
+transaction TriggerPayment {
+  --> Loan loan
+  o Double amount
+}
+
+transaction MarkAtLoss {
+  --> Loan loan
+  o Double amount
+}
+
+transaction PlaceBid {
+  --> Loan loan
+  o LendorInfo bidInfo
+}
+
+transaction SetupDemo {}
