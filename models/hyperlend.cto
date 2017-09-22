@@ -49,7 +49,7 @@ asset Loan identified by loanId {
 
 asset LendingPool identified by poolId {
   o String poolId
-  o Loan[] loans
+  o Loan[] loans optional
   --> Member owner
 }
 

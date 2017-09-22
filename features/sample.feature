@@ -11,92 +11,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-Feature: Sample
+Feature: Happy Path
     Background:
         Given I have deployed the business network definition ..
-        And I have added the following participants of type ch.hslu.blc.Trader
-            | tradeId         | firstName | lastName |
-            | alice@email.com | Alice     | A        |
-            | bob@email.com   | Bob       | B        |
-        And I have added the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 1             | One         | London       | 1          | alice@email.com |
-            | 2             | Two         | Paris        | 2          | bob@email.com   |
-        And I have issued the participant ch.hslu.blc.Trader#alice@email.com with the identity alice1
-        And I have issued the participant ch.hslu.blc.Trader#bob@email.com with the identity bob1
-    Scenario: Alice can read all of the assets
+        And I have added the following participants of type ch.hslu.blc.NaturalPerson
+            | email           | firstName | lastName | balance |
+            | alice@email.com | Alice     | A        | 0 |
+            | bob@email.com   | Bob       | B        | 0 |
+            | charlie@email.com   | Charlie   | C        | 0 |
+        And I have added the following assets of type ch.hslu.blc.LendingPool
+            | poolId  | owner           |
+            | 1          | charlie@email.com |
+        And I have issued the participant ch.hslu.blc.NaturalPerson#alice@email.com with the identity alice1
+        And I have issued the participant ch.hslu.blc.NaturalPerson#bob@email.com with the identity bob1
+    Scenario: Alice can add a new loan
         When I use the identity alice1
-        Then I should have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 1             | One         | London       | 1          | alice@email.com |
-            | 2             | Two         | Paris        | 2          | bob@email.com   |
-    Scenario: Bob can read all of the assets
-        When I use the identity bob1
-        Then I should have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 1             | One         | London       | 1          | alice@email.com |
-            | 2             | Two         | Paris        | 2          | bob@email.com   |
-    Scenario: Alice can add assets that she owns
-        When I use the identity alice1
-        And I add the following asset of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 3             | Three       | New York     | 3          | alice@email.com |
-        Then I should have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 3             | Three       | New York     | 3          | alice@email.com |
-    Scenario: Bob can add assets that he owns
-        When I use the identity bob1
-        And I add the following asset of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 4             | Four        | Rome         | 4          | bob@email.com   |
-        Then I should have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 4             | Four        | Rome         | 4          | bob@email.com   |
-    Scenario: Alice can update her assets
-        When I use the identity alice1
-        And I update the following asset of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 1             | One         | London       | 5        | alice@email.com |
-        Then I should have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 1             | One         | London       | 5        | alice@email.com |
-    Scenario: Bob can update his assets
-        When I use the identity bob1
-        And I update the following asset of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 2             | Two         | Paris        | 6        | bob@email.com   |
-        Then I should have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 2             | Two         | Paris        | 6        | bob@email.com   |
-    Scenario: Alice can remove her assets
-        When I use the identity alice1
-        And I remove the following asset of type ch.hslu.blc.Commodity
-            | tradingSymbol |
-            | 1             |
-        Then I should not have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol |
-            | 1             |
-    Scenario: Bob can remove his assets
-        When I use the identity bob1
-        And I remove the following asset of type ch.hslu.blc.Commodity
-            | tradingSymbol |
-            | 2             |
-        Then I should not have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol |
-            | 2             |
-    Scenario: Alice can submit a transaction for her assets
-        When I use the identity alice1
-        And I submit the following transaction of type ch.hslu.blc.Trade
-            | commodity | newOwner      |
-            | 1         | bob@email.com |
-        Then I should have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity | owner           |
-            | 1             | One         | London       | 1          | bob@email.com |
-    Scenario: Bob can submit a transaction for his assets
-        When I use the identity bob1
-        And I submit the following transaction of type ch.hslu.blc.Trade
-            | commodity | newOwner        |
-            | 2         | alice@email.com |
-        Then I should have the following assets of type ch.hslu.blc.Commodity
-            | tradingSymbol | description | mainExchange | quantity   | owner           |
-            | 2             | Two         | Paris        | 2          | alice@email.com   |
+        When I have added the following assets of type ch.hslu.blc.Loan
+            | loanId | owner | state | amount |
+            | 1 | alice@email.com | REQUESTED | 1000 |
+        Then I should have the following assets of type ch.hslu.blc.LendingPool
+            | poolId  | owner           |
+            | 1       | charlie@email.com |
+    
