@@ -1,6 +1,3 @@
-/**
- * My commodity trading network
- */
 namespace ch.hslu.blc
 
 abstract participant Member identified by email {
@@ -40,6 +37,8 @@ asset Loan identified by loanId {
   o String loanId
   o LoanState state
   o Double amount
+  o Double fee optional
+  o Double specialInterest optional
   o LendorInfo[] bids optional
   o LendorInfo[] lendors optional
   o PaymentInfo[] payments optional
