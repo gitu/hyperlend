@@ -32,4 +32,10 @@ Feature: Happy Path
         Then I should have the following assets of type ch.hslu.blc.LendingPool
             | poolId  | owner           |
             | 1       | charlie@email.com |
+        When I submit the following Transaction of type ch.hslu.blc.AcceptToPool
+            | loan | pool | specialInterest | fee |
+            | 1 | 1 | 0.2 | 0.1 |
+        Then I should have the following asset of type ch.hslu.blc.Loan
+            | loanId | pool |
+            | 1      | 1    |
     
