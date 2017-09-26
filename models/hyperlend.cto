@@ -88,4 +88,8 @@ transaction PlaceBid {
   o LendorInfo bidInfo
 }
 
+transaction EndBiddingTimed {
+  --> Loan loan
+}
+
 transaction SetupDemo {}
